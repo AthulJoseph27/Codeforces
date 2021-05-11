@@ -9,7 +9,6 @@ typedef vector<vi> vvi;
 typedef vector<ll> vl;
 typedef vector<vl> vvl;
 
-#define push push_back
 #define all(v) v.begin(), v.end()
 
 void __print(int x)
