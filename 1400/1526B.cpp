@@ -63,54 +63,21 @@ void _print(T t, V... v)
 #define debug(x...)
 #endif
 
+vector<bool> dp(1e4 + 1, false);
+
 void solve(int cc)
 {
     int n;
-
     cin >> n;
 
-    vector<int> a(n);
-
-    for (int &i : a)
-        cin >> i;
-
-    // Every one can be moved to the left or right , so it has 2 states at everypoint
-
-    vector<int> ones;
-
-    for (int i = 0; i < n; i++)
+    if (n >= dp.size() || dp[n])
     {
-        if (a[i] == 1)
-            ones.push_back(i);
+        cout << "YES" << '\n';
     }
-
-    vector<vector<int>> dp(5001, vector<int>(5001, INT_MAX));
-
-    dp[0][0] = 0;
-
-    for (int i = 0; i < n; i++)
+    else
     {
-        for (int j = 0; j <= ones.size(); j++)
-        {
-            if (dp[i][j] == INT_MAX)
-                continue;
-
-            // we need to choose at most ones.size() zeros
-            // initially we have an empty array with no zeros
-            // when the array is of size 1, then no of zeros is 1
-
-            dp[i + 1][j] = min(dp[i + 1][j], dp[i][j]);
-
-            // when we choose same number of final positions for the next array also,i.e size increases by 1
-
-            if (j < ones.size() && a[i] == 0)
-            {
-                dp[i + 1][j + 1] = min(dp[i + 1][j + 1], dp[i][j] + abs(ones[j] - i));
-            }
-        }
+        cout << "NO" << '\n';
     }
-
-    cout << dp[n][ones.size()] << '\n';
 }
 
 int main()
@@ -118,7 +85,37 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    solve(1);
+    vector<long long> coins;
+
+    string s = "11";
+
+    while (s.size() <= 10)
+    {
+        coins.push_back(stoll(s));
+        s += '1';
+    }
+
+    dp[0] = true;
+
+    for (long long c : coins)
+    {
+        for (int i = 0; (i + c) < dp.size(); i++)
+        {
+            if (dp[i])
+            {
+                dp[i + c] = true;
+            }
+        }
+    }
+
+    int T;
+
+    cin >> T;
+
+    for (int i = 0; i < T; i++)
+    {
+        solve(i + 1);
+    }
 
     return 0;
 }
