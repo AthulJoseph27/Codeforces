@@ -63,6 +63,13 @@ void _print(T t, V... v)
 #define debug(x...)
 #endif
 
+int gcd(int a, int b)
+{
+    if (b == 0)
+        return a;
+    return gcd(b, a % b);
+}
+
 void solve(int cc)
 {
     int n;
@@ -71,110 +78,32 @@ void solve(int cc)
     string s;
     cin >> s;
 
-    int d = 0;
-    int k = 0;
+    map<pair<int, int>, int> mp;
 
-    string tmp = "";
-
-    vector<int> ans(n + 1, 1);
-
-    vector<pair<int, int>> prefs = {{0, 0}};
+    int d = 0, k = 0;
 
     for (int i = 0; i < n; i++)
     {
         if (s[i] == 'D')
         {
-            prefs.emplace_back(prefs.back().first + 1, prefs.back().second);
+            d++;
         }
         else
         {
-            prefs.emplace_back(prefs.back().first, prefs.back().second + 1);
+            k++;
         }
-    }
 
-    for (int i = 0; i < n; i++)
-    {
-        if (s[i] == 'D')
+        if (k == 0 || d == 0)
         {
-            tmp += 'D';
+            cout << max(d, k) << ' ';
+            // mp[make_pair(d, k)]++;
         }
         else
         {
-            tmp += 'K';
+            int gcf = gcd(d, k);
+            cout << (mp[make_pair(d / gcf, k / gcf)] + 1) << ' ';
+            mp[make_pair(d / gcf, k / gcf)]++;
         }
-        int tmp_size = tmp.size();
-        int itr = 2;
-
-        pair<int, int> cur_count = prefs[i + 1];
-
-        int len = cur_count.first + cur_count.second;
-
-        for (int j = i + 1; (j + len) <= n; j += len)
-        {
-            pair<int, int> itr_count = {prefs[j + len].first - prefs[j].first, prefs[j + len].second - prefs[j].second};
-
-            long long ad = ((long long)itr_count.first) * ((long long)cur_count.second);
-            long long bc = ((long long)itr_count.second) * ((long long)cur_count.first);
-            if (ad == bc)
-            {
-                ans[j + len] = max(itr, ans[j + len]);
-            }
-            else
-            {
-                bool flag = true;
-                for (int ki = len + 1; (j + ki) <= n; ki++)
-                {
-                    // debug(tmp, s.substr(j, ki));
-
-                    itr_count = {prefs[j + ki].first - prefs[j].first, prefs[j + ki].second - prefs[j].second};
-                    ad = ((long long)itr_count.first) * ((long long)cur_count.second);
-                    bc = ((long long)itr_count.second) * ((long long)cur_count.first);
-                    if (ad == bc)
-                    {
-                        ans[j + ki] = max(itr, ans[j + ki]);
-                        // debug(ans[j + ])
-                        // j = j - len + ki;
-                        flag = false;
-                        break;
-                    }
-                }
-                if (flag)
-                    break;
-            }
-            itr++;
-        }
-    }
-    // else
-    // {
-    //     tmp += 'K';
-    //     int tmp_size = tmp.size();
-    //     int itr = 2;
-
-    //     // if (ans[i] != 1)
-    //     //     continue;
-    //     pair<int, int> cur_count = prefs[i + 1];
-
-    //     for (int j = i + 1; (j + tmp_size) <= n; j += tmp_size)
-    //     {
-    //         pair<int, int> itr_count = {prefs[j + tmp_size].first - prefs[j].first, prefs[j + tmp_size].second - prefs[j].second};
-    //         long long ad = ((long long)itr_count.first) * ((long long)cur_count.second);
-    //         long long bc = ((long long)itr_count.second) * ((long long)cur_count.first);
-    //         if (ad == bc)
-    //         {
-    //             ans[tmp_size * itr] = max(itr, ans[tmp_size * itr]);
-    //         }
-    //         else
-    //         {
-    //             break;
-    //         }
-    //         itr++;
-    //     }
-    // }
-    // }
-
-    for (int i = 1; i <= n; i++)
-    {
-        cout << ans[i] << ' ';
     }
 
     cout << '\n';
