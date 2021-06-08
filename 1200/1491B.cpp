@@ -65,35 +65,37 @@ void _print(T t, V... v)
 
 void solve(int cc)
 {
-    int n;
-    cin >> n;
-    string s;
-    cin >> s;
+    int n, u, v;
+    cin >> n >> u >> v;
 
-    int l = s.size();
+    vector<int> ob(n);
 
-    if (l % 2 != 0)
+    for (int &i : ob)
     {
-        if (s[l / 2] == '0')
-        {
-            int count = 0;
-            for (char c : s)
-            {
-                if (c == '0')
-                {
-                    count++;
-                }
-            }
-
-            if (count > 2)
-            {
-                cout << "ALICE" << '\n';
-                return;
-            }
-        }
+        cin >> i;
     }
 
-    cout << "BOB" << '\n';
+    set<int> st;
+
+    st.insert(ob[0]);
+
+    for (int i = 1; i < n; i++)
+    {
+        if (abs(ob[i] - ob[i - 1]) > 1)
+        {
+            cout << 0 << '\n';
+            return;
+        }
+        st.insert(ob[i]);
+    }
+
+    if (st.size() == 1)
+    {
+        cout << min(2 * v, (u + v)) << '\n';
+        return;
+    }
+
+    cout << min(u, v) << '\n';
 }
 
 int main()

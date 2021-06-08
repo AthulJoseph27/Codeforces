@@ -63,37 +63,76 @@ void _print(T t, V... v)
 #define debug(x...)
 #endif
 
+bool isPalindrome(string &s)
+{
+    for (int i = 0; i < s.size(); i++)
+        if (s[i] != s[s.size() - 1 - i])
+            return false;
+
+    return true;
+}
+
 void solve(int cc)
 {
     int n;
     cin >> n;
+
     string s;
     cin >> s;
 
-    int l = s.size();
+    /*
+        if len(s) is odd and s is palindrome,
+        if center digit is 0, then alice can keep the string palindrome
+        hence forcing bob to pay 1 dollar and the string would become non palindrome, hence forth
+        alice can reverse the string and pay 0 dollar
+    */
 
-    if (l % 2 != 0)
+    if (isPalindrome(s))
     {
-        if (s[l / 2] == '0')
-        {
-            int count = 0;
-            for (char c : s)
-            {
-                if (c == '0')
-                {
-                    count++;
-                }
-            }
+        int count = 0;
 
-            if (count > 2)
+        for (int i = 0; i < n; i++)
+        {
+            if (s[i] == '0')
+                count++;
+        }
+
+        if (s.size() % 2 != 0 && s[s.size() / 2] == '0' && count > 1)
+        {
+            cout << "ALICE" << '\n';
+            return;
+        }
+        cout << "BOB" << '\n';
+    }
+    else
+    {
+        /*
+            alice can rotate the string, untill bob make the string palindrome
+            for bob to win , he have to make the string palindrome with changing less than n/2 zeros
+            but when the string is about to be palindrome, alice cud always pay 1 dollar and make the
+            life harder for bob
+
+            chances for draw ?
+
+            if s can be made palindrome with one move, then its optimal for alice to pay 1 dollar
+            and there is one more zero, then bob will pay one dollar and the game wud be drawn
+        */
+
+        int count = 0;
+
+        for (int i = 0; i < n; i++)
+        {
+            if (s[i] == '0')
             {
-                cout << "ALICE" << '\n';
-                return;
+                count++;
             }
         }
-    }
 
-    cout << "BOB" << '\n';
+        if (s.size() % 2 != 0 && count == 2 && (s[s.size() / 2] == '0'))
+            cout << "DRAW" << '\n';
+        else
+            cout << "ALICE" << '\n';
+    }
 }
 
 int main()

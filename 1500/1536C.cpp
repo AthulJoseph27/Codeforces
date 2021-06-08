@@ -63,23 +63,50 @@ void _print(T t, V... v)
 #define debug(x...)
 #endif
 
+int gcd(int a, int b)
+{
+    if (b == 0)
+        return a;
+    return gcd(b, a % b);
+}
+
 void solve(int cc)
 {
-    int n, u, v;
-    cin >> n >> u >> v;
+    int n;
+    cin >> n;
 
-    vector<int> ob(n);
+    string s;
+    cin >> s;
 
-    for (int &i : ob)
-        cin >> i;
+    map<pair<int, int>, int> mp;
 
-    // if there are no adjacent blocks, the cost will be zero always
+    int d = 0, k = 0;
 
-    bool can = true;
-    for (int i = 1; i < n; i++)
+    for (int i = 0; i < n; i++)
     {
-        if(a[i] )
+        if (s[i] == 'D')
+        {
+            d++;
+        }
+        else
+        {
+            k++;
+        }
+
+        if (k == 0 || d == 0)
+        {
+            cout << max(d, k) << ' ';
+            // mp[make_pair(d, k)]++;
+        }
+        else
+        {
+            int gcf = gcd(d, k);
+            cout << (mp[make_pair(d / gcf, k / gcf)] + 1) << ' ';
+            mp[make_pair(d / gcf, k / gcf)]++;
+        }
     }
+
+    cout << '\n';
 }
 
 int main()
