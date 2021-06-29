@@ -72,8 +72,6 @@ void solve(int cc)
 
     for (long long &i : c)
         cin >> i;
-    
-    
 }
 
 int main()
