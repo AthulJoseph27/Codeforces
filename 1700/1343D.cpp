@@ -73,25 +73,38 @@ void solve(int cc)
     for (int &i : a)
         cin >> i;
 
-    unordered_map<int, int> freq;
+    int ub = n / 2;
 
-    for (int i = 0; i < n / 2; i++)
+    map<int, int> mp;
+
+    vector<int> tl(2 * k + 1, 0);
+
+    for (int i = 0; i < ub; i++)
     {
-        freq[a[i] + a[n - i - 1]]++;
+        int mx = max(a[i], a[n - i - 1]) + k;
+        int mn = min(a[i], a[n - i - 1]) + 1;
+
+        tl[mn]++;
+        if ((mx + 1) < tl.size())
+            tl[mx + 1]--;
+
+        mp[a[i] + a[n - i - 1]]++;
     }
 
-    vector<pair<int, int>> v;
+    int ans = n / 2;
 
-    for (auto it = freq.begin(); it != freq.end(); it++)
+    int cu = 0;
+
+    for (int i = 0; i < tl.size(); i++)
     {
-        v.emplace_back(it->first, it->second);
+        cu += tl[i];
+
+        ans = min(ans, cu - mp[i] + (n / 2 - cu) * 2);
     }
 
-    sort(all(v), [&](const pair<int, int> aa, const pair<int, int> bb) {
-        return aa.second > bb.second;
-    });
+    assert(ans >= 0);
 
-    
+    cout << ans << '\n';
 }
 
 int main()
