@@ -63,15 +63,30 @@ void _print(T t, V... v)
 #define debug(x...)
 #endif
 
+struct Point
+{
+    int x, y;
+};
+
 void solve(int cc)
 {
-    int n;
-    cin >> n;
+    Point a, b, f;
+    cin >> a.x >> a.y;
+    cin >> b.x >> b.y;
+    cin >> f.x >> f.y;
 
-    vector<long long> c(n);
-
-    for (long long &i : c)
-        cin >> i;
+    if (f.x == a.x && a.x == b.x && (f.y < max(a.y, b.y) && f.y > min(a.y, b.y)))
+    {
+        cout << (abs(a.x - b.x) + abs(b.y - a.y) + 2) << '\n';
+    }
+    else if (f.y == a.y && a.y == b.y && (f.x < max(a.x, b.x) && f.x > min(a.x, b.x)))
+    {
+        cout << (abs(a.x - b.x) + abs(b.y - a.y) + 2) << '\n';
+    }
+    else
+    {
+        cout << (abs(a.x - b.x) + abs(b.y - a.y)) << '\n';
+    }
 }
 
 int main()
