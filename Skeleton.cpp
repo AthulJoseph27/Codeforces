@@ -8,6 +8,7 @@ typedef vector<int> vi;
 typedef vector<vi> vvi;
 typedef vector<ll> vl;
 typedef vector<vl> vvl;
+typedef pair<int, int> pi;
 
 #define all(v) v.begin(), v.end()
 
