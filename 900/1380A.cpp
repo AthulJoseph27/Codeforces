@@ -67,6 +67,73 @@ void _print(T t, V... v)
 
 void solve(int cc)
 {
+    int n;
+    cin >> n;
+
+    vi a(n);
+
+    for (int &i : a)
+        cin >> i;
+
+    int st = 0, en = n - 1;
+
+    int nm = n;
+
+    while (st < en)
+    {
+        if (a[st] == nm)
+        {
+            st++;
+            nm--;
+        }
+        else if (a[en] == nm)
+        {
+            en--;
+            nm--;
+        }
+        else
+        {
+            break;
+        }
+    }
+
+    int x = -1, y = -1, z = -1;
+
+    for (int i = 0; i < n; i++)
+    {
+        if (a[i] == nm)
+        {
+            y = i;
+            break;
+        }
+    }
+
+    for (int i = 0; i < y; i++)
+    {
+        if (a[i] < nm)
+        {
+            x = i;
+            break;
+        }
+    }
+
+    for (int i = y + 1; i < n; i++)
+    {
+        if (a[i] < nm)
+        {
+            z = i;
+            break;
+        }
+    }
+
+    if ((x == -1) || (y == -1) || (z == -1))
+    {
+        cout << "NO\n";
+        return;
+    }
+
+    cout << "YES\n";
+    cout << (x + 1) << " " << (y + 1) << " " << (z + 1) << '\n';
 }
 
 int main()

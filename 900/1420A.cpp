@@ -67,6 +67,49 @@ void _print(T t, V... v)
 
 void solve(int cc)
 {
+    int n;
+    cin >> n;
+
+    vi a(n);
+
+    for (int &i : a)
+        cin >> i;
+
+    bool desc = true;
+
+    bool all_same = true;
+
+    for (int i : a)
+    {
+        if (i != a[0])
+        {
+            all_same = false;
+            break;
+        }
+    }
+
+    if (all_same)
+    {
+        cout << "YES\n";
+        return;
+    }
+
+    for (int i = 1; i < n; i++)
+    {
+        if (a[i] >= a[i - 1])
+        {
+            desc = false;
+            break;
+        }
+    }
+
+    if (desc)
+    {
+        cout << "NO\n";
+        return;
+    }
+
+    cout << "YES\n";
 }
 
 int main()

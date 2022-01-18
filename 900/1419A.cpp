@@ -67,6 +67,62 @@ void _print(T t, V... v)
 
 void solve(int cc)
 {
+    int n;
+    cin >> n;
+    string s;
+    cin >> s;
+
+    if (n == 1)
+    {
+        if ((s[0] - '0') % 2 != 0)
+        {
+            cout << 1 << '\n';
+        }
+        else
+        {
+            cout << 2 << '\n';
+        }
+        return;
+    }
+
+    bool odd = false, even = false;
+
+    for (int i = 1; i <= n; i++)
+    {
+        if (i % 2 == 1)
+        {
+            odd |= ((s[i - 1] - '0') % 2 != 0);
+        }
+        else
+        {
+            even |= ((s[i - 1] - '0') % 2 == 0);
+        }
+    }
+
+    if (n % 2 == 1)
+    {
+        // 1 plays last
+        if (odd)
+        {
+            cout << 1 << '\n';
+        }
+        else
+        {
+            cout << 2 << '\n';
+        }
+    }
+    else
+    {
+        // 2 plays last
+        if (even)
+        {
+            cout << 2 << '\n';
+        }
+        else
+        {
+            cout << 1 << '\n';
+        }
+    }
 }
 
 int main()

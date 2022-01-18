@@ -67,6 +67,44 @@ void _print(T t, V... v)
 
 void solve(int cc)
 {
+    int n, k;
+    cin >> n >> k;
+
+    /*
+        0      x      n
+
+        n = 4
+        x = 2
+
+        x - (n-x) = k
+        2x - n = k
+        2x = k+n
+        x = (k+n)/2
+        
+        abs(x - (n+d-x)) = k
+        abs(n+d) = k
+        n+d = k
+        d = k-n
+        or
+        n+d = -k
+        d = n+k
+    */
+
+    if (n < k)
+    {
+        cout << k - n << '\n';
+        return;
+    }
+
+    int x = k + n;
+
+    if (x % 2 == 0)
+    {
+        cout << 0 << '\n';
+        return;
+    }
+
+    cout << 1 << '\n';
 }
 
 int main()

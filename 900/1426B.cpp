@@ -11,7 +11,6 @@ typedef vector<vl> vvl;
 typedef pair<int, int> pi;
 
 #define all(v) v.begin(), v.end()
-#define rall(v) v.rbegin(), v.rend()
 
 void __print(int x)
 {
@@ -67,6 +66,35 @@ void _print(T t, V... v)
 
 void solve(int cc)
 {
+    int n, m;
+    cin >> n >> m;
+
+    bool can = false;
+
+    for (int i = 0; i < n; i++)
+    {
+        int a, b, c, d;
+        cin >> a >> b >> c >> d;
+
+        if (b == c)
+        {
+            can = true;
+        }
+    }
+
+    if (m % 2 != 0)
+    {
+        cout << "NO\n";
+        return;
+    }
+
+    if (can)
+    {
+        cout << "YES\n";
+        return;
+    }
+
+    cout << "NO\n";
 }
 
 int main()

@@ -67,6 +67,54 @@ void _print(T t, V... v)
 
 void solve(int cc)
 {
+    int n;
+    cin >> n;
+
+    vi a(n);
+
+    for (int &i : a)
+        cin >> i;
+
+    map<int, int> mp;
+
+    for (int i : a)
+        mp[i]++;
+
+    int mex = -1;
+    bool all_2 = true;
+
+    for (int i = 0; i <= 100; i++)
+    {
+        if (mp[i] == 0)
+        {
+            mex = i;
+            break;
+        }
+
+        if (mp[i] < 2)
+        {
+            all_2 = false;
+        }
+    }
+
+    if (all_2)
+    {
+        cout << (mex * 2) << '\n';
+        return;
+    }
+
+    int new_mex = -1;
+
+    for (int i = 0; i <= 100; i++)
+    {
+        if (mp[i] == 1)
+        {
+            new_mex = i;
+            break;
+        }
+    }
+
+    cout << (mex + new_mex) << '\n';
 }
 
 int main()

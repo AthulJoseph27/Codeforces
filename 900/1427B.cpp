@@ -11,7 +11,6 @@ typedef vector<vl> vvl;
 typedef pair<int, int> pi;
 
 #define all(v) v.begin(), v.end()
-#define rall(v) v.rbegin(), v.rend()
 
 void __print(int x)
 {
@@ -67,6 +66,70 @@ void _print(T t, V... v)
 
 void solve(int cc)
 {
+    int n;
+    cin >> n;
+
+    vi a(n);
+
+    for (int &i : a)
+        cin >> i;
+
+    int sm = 0;
+
+    for (int i : a)
+        sm += i;
+
+    if (sm == 0)
+    {
+        cout << "NO\n";
+        return;
+    }
+
+    bool has_zero = false;
+
+    for (int i : a)
+        if (i == 0)
+        {
+            has_zero = true;
+            break;
+        }
+
+    cout << "YES\n";
+
+    sort(all(a));
+
+    if (a[0] >= 0)
+    {
+        sort(a.rbegin(), a.rend());
+        for (int i : a)
+            cout << i << ' ';
+        cout << '\n';
+        return;
+    }
+
+    int neg_sm = 0, ps_sm = 0;
+
+    for (int i : a)
+    {
+        if (i < 0)
+            neg_sm += abs(i);
+        else
+            ps_sm += i;
+    }
+
+    if (ps_sm > neg_sm)
+    {
+        sort(a.rbegin(), a.rend());
+    }
+
+    if (ps_sm == neg_sm)
+    {
+        swap(a[0], a[n - 1]);
+    }
+
+    for (int i : a)
+        cout << i << ' ';
+    cout << '\n';
 }
 
 int main()
