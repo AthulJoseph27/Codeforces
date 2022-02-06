@@ -80,11 +80,11 @@ void solve(int cc)
     for (ll &i : c)
         cin >> i;
 
-    vector<pair<ll, ll>> a;
+    vl a;
 
     for (int i = 0; i < n; i++)
     {
-        a.push_back({c[k[i] - 1], i});
+        a.push_back(c[k[i] - 1]);
     }
 
     sort(rall(a));
@@ -97,13 +97,13 @@ void solve(int cc)
 
     for (int i = 0; i < n; i++)
     {
-        if (index < m && c[index] < a[i].first)
+        if (index < m && c[index] < a[i])
         {
             cost += c[index++];
         }
         else
         {
-            cost += a[i].first;
+            cost += a[i];
         }
     }
 
