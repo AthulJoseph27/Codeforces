@@ -67,8 +67,72 @@ void _print(T t, V... v)
 
 void solve(int cc)
 {
-}
+    int n, m;
+    cin >> n >> m;
 
+    vector<string> a(n);
+
+    for (auto &p : a)
+        cin >> p;
+
+    ll ans = 0;
+
+    vvl w(n, vl(m, 0));
+
+    for (int i = 0; i < n; i++)
+    {
+        ll cnt = 0;
+        for (int j = 0; j < m; j++)
+        {
+            if (a[i][j] == '*')
+            {
+                cnt++;
+            }
+            else
+            {
+                cnt = 0;
+            }
+            w[i][j] = cnt;
+        }
+        cnt = 0;
+        for (int j = m - 1; j >= 0; j--)
+        {
+            if (a[i][j] == '*')
+            {
+                cnt++;
+            }
+            else
+            {
+                cnt = 0;
+            }
+            w[i][j] = max(0ll, min(w[i][j], cnt) * 2ll - 1ll);
+        }
+    }
+
+    // debug(w);
+
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < m; j++)
+        {
+            ll mn_width = 1;
+            for (int h = 0; (i + h) < n; h++)
+            {
+                if (w[i + h][j] >= mn_width)
+                {
+                    ans++;
+                }
+                else
+                {
+                    break;
+                }
+                mn_width += 2;
+            }
+        }
+    }
+
+    cout << ans << '\n';
+}
 int main()
 {
     ios_base::sync_with_stdio(false);

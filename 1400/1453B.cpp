@@ -67,6 +67,60 @@ void _print(T t, V... v)
 
 void solve(int cc)
 {
+    int n;
+    cin >> n;
+
+    vl a(n);
+
+    for (ll &i : a)
+        cin >> i;
+
+    if (n == 2)
+    {
+        cout << 0 << '\n';
+        return;
+    }
+
+    // vl prefs = {0}, suffx = {0};
+
+    // for (int i = 1; i < n; i++)
+    // {
+    //     prefs.push_back(prefs.back() + llabs(a[i] - a[i - 1]));
+    // }
+
+    // for (int i = n - 2; i >= 0; i--)
+    // {
+    //     suffx.push_back(suffx.back() + llabs(a[i] - a[i + 1]));
+    // }
+
+    ll total = 0;
+
+    for (int i = n - 2; i >= 0; i--)
+    {
+        total += llabs(a[i] - a[i + 1]);
+    }
+
+    ll ans = LLONG_MAX;
+
+    for (int i = 0; i < n; i++)
+    {
+        // skip this index
+        //
+        if (i == 0)
+        {
+            ans = min(ans, total - llabs(a[0] - a[1]));
+        }
+        else if (i == (n - 1))
+        {
+            ans = min(ans, total - llabs(a[n - 1] - a[n - 2]));
+        }
+        else
+        {
+            ans = min(ans, total - (llabs(a[i] - a[i - 1]) + llabs(a[i] - a[i + 1])) + llabs(a[i - 1] - a[i + 1]));
+        }
+    }
+
+    cout << ans << '\n';
 }
 
 int main()
